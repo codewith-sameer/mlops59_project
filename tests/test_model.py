@@ -1,8 +1,13 @@
+import sys
+import os
 import unittest
-from src.model import create_model
+from model import create_model
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                "../src")))
 
 
 class TestModel(unittest.TestCase):
