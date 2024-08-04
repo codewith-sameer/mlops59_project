@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.venv
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# DVC
+.cache/
+*.dvc
+
+# MLflow
+mlruns/
+
+# Dataset
+data/train.csv
+data/test.csv
