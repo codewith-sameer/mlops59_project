@@ -5,7 +5,19 @@ import pandas as pd
 app = Flask(__name__)
 
 # Load model
-model = mlflow.sklearn.load_model("models:/model/production")
+model = mlflow.sklearn.load_model(
+    "models:/model/1"
+)  # Use the correct model name and version
+
+
+@app.route("/")
+def home():
+    return "Welcome to the ML model prediction service!"
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return "", 204
 
 
 @app.route("/predict", methods=["POST"])

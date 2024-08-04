@@ -44,6 +44,11 @@ with mlflow.start_run():
     # Log model to MLflow
     mlflow.sklearn.log_model(best_model, "model")
 
+    # Register the model
+    mlflow.register_model(
+        "runs:/{}/model".format(mlflow.active_run().info.run_id), "model"
+    )
+
     # Save the best model locally to the models directory
     joblib.dump(best_model, "models/best_model.pkl")
 
