@@ -1,0 +1,18 @@
+# General packages
+pandas==1.5.3
+numpy==1.21.6
+scikit-learn==1.2.2
+joblib==1.2.0
+
+# MLflow for experiment tracking
+mlflow==2.3.2
+
+# DVC for data versioning
+dvc[s3]==3.11.1
+
+# Flask for model serving
+flask==2.2.5
+
+# Additional dependencies for testing and linting
+pytest==7.4.0
+flake8==6.1.0
