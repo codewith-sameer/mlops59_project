@@ -1,27 +1,44 @@
+import pytest
+from flask.testing import FlaskClient
+import json
 import sys
 import os
-import unittest
-from model import create_model
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                                "../src")))
+# Add the src directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                             "../src")))
+
+from app import app
 
 
-class TestModel(unittest.TestCase):
-    def test_model_accuracy(self):
-        data = load_iris()
-        X_train, X_test, y_train, y_test = train_test_split(
-            data.data, data.target, test_size=0.2, random_state=42
-        )
-        model = create_model()
-        model.fit(X_train, y_train)
-        predictions = model.predict(X_test)
-        accuracy = accuracy_score(y_test, predictions)
-        self.assertGreater(accuracy, 0.7)
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
+
+
+def test_home(client: FlaskClient):
+    """Test the home route"""
+    response = client.get("/")
+    assert response.status_code == 200
+    assert b"Welcome to the ML model prediction service!" in response.data
+
+
+def test_predict(client: FlaskClient):
+    """Test the predict route"""
+    data = {
+        "sepal length (cm)": [5.1, 5.9],
+        "sepal width (cm)": [3.5, 3.0],
+        "petal length (cm)": [1.4, 4.2],
+        "petal width (cm)": [0.2, 1.5],
+    }
+    response = client.post(
+        "/predict", data=json.dumps(data), content_type="application/json"
+    )
+    assert response.status_code == 200
+    json_data = response.get_json()
+    assert isinstance(json_data, list)  # Ensure the prediction is a list
 
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main()
