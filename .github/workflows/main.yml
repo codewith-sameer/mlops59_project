@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - feature2
+      - 'feature2'
   pull_request:
     branches:
       - main
-      - feature2
+      - 'feature2'
 
 jobs:
   checkout-code:
