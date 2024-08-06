@@ -54,4 +54,3 @@ with mlflow.start_run():
     metrics = {"accuracy": accuracy}
     with open("metrics.json", "w") as f:
         json.dump(metrics, f)
-

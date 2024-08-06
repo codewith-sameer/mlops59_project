@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
 import os
@@ -17,7 +17,7 @@ else:
 
 @app.route("/")
 def home():
-    return "Welcome to the Titanic Survival Prediction API!"
+    return render_template("form.html")
 
 
 @app.route("/predict", methods=["POST"])
